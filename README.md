@@ -275,10 +275,10 @@ http://localhost:8081
 
 URL lokal alternatif: `http://127.0.0.1:8081`
 
-URL publik Cloudflare Quick Tunnel yang sedang digunakan:
+URL publik Cloudflare Quick Tunnel :
 
 ```text
-https://ping-railway-node-collectors.trycloudflare.com
+Bisa di cek dengan cara, cek logs service tunnel, docker logs namaservice-tunnel
 ```
 
 URL publik Quick Tunnel bersifat sementara dan dapat berubah ketika container tunnel dibuat ulang. Untuk mendapatkan URL terbaru, jalankan `docker compose logs tunnel`.
