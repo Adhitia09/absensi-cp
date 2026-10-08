@@ -13,9 +13,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - .:/var/www/html
-    command: sh -c "php artisan key:generate --force && php artisan migrate --seed --force && apache2-foreground"
+    command: sh -c "test -f .env || cp .env.example .env; php artisan key:generate --force && php artisan migrate --seed --force && apache2-foreground"
   tunnel:
     image: cloudflare/cloudflared:latest
     command: tunnel --no-autoupdate --url http://app:80
