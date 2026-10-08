@@ -1,0 +1,10 @@
+<?php
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController; use App\Http\Controllers\AttendanceController; use App\Http\Controllers\AttendanceExportController; use App\Http\Controllers\AttendanceHistoryController; use App\Http\Controllers\DashboardController; use App\Http\Controllers\EmployeeController; use App\Http\Controllers\LeaveRequestController; use App\Http\Controllers\ProfileController;
+Route::redirect('/', '/dashboard');
+Route::middleware('guest')->group(function(){Route::get('/login',[AuthController::class,'create'])->name('login');Route::post('/login',[AuthController::class,'store'])->name('login.store');});
+Route::middleware('auth')->group(function(){
+ Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard'); Route::get('/profil',[ProfileController::class,'index'])->name('profile'); Route::put('/profil/password',[ProfileController::class,'updatePassword'])->name('profile.password.update'); Route::post('/attendance/check-in',[AttendanceController::class,'checkIn'])->name('attendance.check-in'); Route::post('/attendance/check-out',[AttendanceController::class,'checkOut'])->name('attendance.check-out'); Route::get('/export/absensi',[AttendanceExportController::class,'export'])->name('attendance.export'); Route::post('/logout',[AuthController::class,'destroy'])->name('logout');
+ Route::get('/pegawai',[EmployeeController::class,'index'])->name('employees.index'); Route::post('/pegawai',[EmployeeController::class,'store'])->name('employees.store'); Route::delete('/pegawai/{user}',[EmployeeController::class,'destroy'])->name('employees.destroy'); Route::patch('/pegawai/{user}/reset-password',[EmployeeController::class,'resetPassword'])->name('employees.reset-password'); Route::get('/riwayat-absensi',[AttendanceHistoryController::class,'index'])->name('attendance.history');
+ Route::get('/izin',[LeaveRequestController::class,'index'])->name('leaves.index'); Route::post('/izin',[LeaveRequestController::class,'store'])->name('leaves.store'); Route::patch('/izin/{leaveRequest}',[LeaveRequestController::class,'update'])->name('leaves.update');
+});
